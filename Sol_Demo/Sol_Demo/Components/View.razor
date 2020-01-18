@@ -1,0 +1,71 @@
+﻿@*https://www.youtube.com/watch?v=p4MD6ycpQpY*@
+
+@page "/comp/view"
+@inject IJSRuntime jsRuntime
+
+    <div class="container">
+        <div class="row">
+            <div class="container">
+                <button class="btn btn-primary" @onclick="ShowAlert">Show Alert</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+
+                <div class="form-group">
+                    <input class="form-control" type="text" @bind-value="FullName" />
+                    <button class="btn btn-warning" @onclick="GetSetNames">Get Names</button>
+
+                    <h2>@FullNameFromJs</h2>
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <input id="txtFocus" class="form-control" />
+                    <button class="btn btn-danger" @onclick="SetFocus">Set Focus</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="form-group">
+                    <input @ref="ElementReferenceObj" class="form-control" />
+                    <button class="btn btn-danger" @onclick="RefDemo">Set Focus</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@code {
+
+    private String FullName { get; set; }
+
+    private String FullNameFromJs { get; set; }
+
+    private ElementReference ElementReferenceObj { get; set; }
+
+    private async Task ShowAlert()
+    {
+        await jsRuntime.InvokeVoidAsync(identifier: "showAlertFromJs");
+    }
+
+    private async Task GetSetNames()
+    {
+        FullNameFromJs = await jsRuntime.InvokeAsync<string>(identifier: "getValues", FullName);
+    }
+
+    private async Task SetFocus()
+    {
+        await jsRuntime.InvokeVoidAsync(identifier: "setFocus", "txtFocus");
+    }
+
+    private async Task RefDemo()
+    {
+        await jsRuntime.InvokeVoidAsync(identifier: "elementToFocus",ElementReferenceObj);
+    }
+
+}

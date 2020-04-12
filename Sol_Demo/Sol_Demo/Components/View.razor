@@ -23,6 +23,17 @@
         </div>
         <div class="row">
             <div class="col-12">
+
+                
+                    <button class="btn btn-dark" @onclick="GetValues">Get Names 1</button>
+
+                    <h2>@FullNameFromJs1</h2>
+
+               
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
                 <div class="form-group">
                     <input id="txtFocus" class="form-control" />
                     <button class="btn btn-danger" @onclick="SetFocus">Set Focus</button>
@@ -46,6 +57,8 @@
 
     private String FullNameFromJs { get; set; }
 
+    private String FullNameFromJs1 { get; set; }
+
     private ElementReference ElementReferenceObj { get; set; }
 
     private async Task ShowAlert()
@@ -56,6 +69,11 @@
     private async Task GetSetNames()
     {
         FullNameFromJs = await jsRuntime.InvokeAsync<string>(identifier: "getValues", FullName);
+    }
+
+    private async Task GetValues()
+    {
+        FullNameFromJs1 = await jsRuntime.InvokeAsync<string>(identifier: "getValues1");
     }
 
     private async Task SetFocus()

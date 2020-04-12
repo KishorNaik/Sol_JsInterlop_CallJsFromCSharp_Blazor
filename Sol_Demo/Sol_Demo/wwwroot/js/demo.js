@@ -2,6 +2,10 @@
     alert("Hello from JS");
 }
 
+function getValues1() {
+    return "Kishor Naik";
+}
+
 function getValues(values) {
     return values;
 }
